@@ -1,0 +1,61 @@
+/* src/styles/style.css (o donde lo tengas) */
+
+.hero-section {
+    height: 100vh;
+    /* La imagen de fondo con un degradado oscuro encima */
+    background-image: url('/public/img/fondopollo.jpg');
+}
+
+/* --- ESTILOS DE LA BARRA DE NAVEGACIÓN --- */
+
+/* 1. Fondo negro sólido para la barra de navegación */
+.navbar-custom-black {
+    background-color: #000; /* Fondo negro */
+}
+
+/* 2. Ajustamos los colores y el grosor de los links */
+.navbar-custom-black .nav-link {
+    color: #ffb300; /* Un gris claro, no tan brillante como el blanco */
+    font-weight: normal; /* Quitamos el bold */
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+/* 3. Efecto hover para los links */
+.navbar-custom-black .nav-link:hover,
+.navbar-custom-black .nav-link.active { /* Para que el link activo también resalte */
+    color:#ffb300; /* Blanco brillante al pasar el mouse */
+}
+
+/* 4. Estilo para el texto "3 SABORES" */
+.navbar-brand-text {
+    font-size: 0.9rem; /* Un poco más pequeño */
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: -5px; /* Pequeño ajuste para acercarlo al logo */
+}
+
+/* --- RESTO DE ESTILOS DE LA PÁGINA --- */
+
+/* Estilo para el color específico del título principal */
+.hero-heading {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #e00e0e; /* Color naranja/rojo */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo para el botón personalizado */
+.btn-reserve {
+    background-color: #8c4d2f;
+    border-color: #c87e5e;
+    color: #ffb300;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+}
+
+.btn-reserve:hover {
+    background-color: #a15a39;
+    border-color: #e09d80;
+    color: white;
+}
