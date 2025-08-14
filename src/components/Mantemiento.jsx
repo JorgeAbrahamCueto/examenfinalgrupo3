@@ -101,9 +101,10 @@ export const Mantemiento = () => {
 
       const nuevoEstado = mesaActual.estado === "Bloqueado" ? "Disponible" : "Bloqueado";
 
+      // Actualización optimista de la UI
       setMesas(prev =>
         prev.map(m =>
-          m.id === id ? { ...m, estado: nuevoEstado, ultimaModificacion: new Date().toISOString() } : m
+          m.id === id ? { ...m, estado: nuevoEstado } : m
         )
       );
 
@@ -111,31 +112,21 @@ export const Mantemiento = () => {
         `http://localhost/idatrestaurant2025/public/api/mantenimientomesas/${id}/estado`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-          },
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
           body: JSON.stringify({ estadoMesa: nuevoEstado }),
         }
       );
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Respuesta del servidor:", errorText);
+        // Si la API falla, revertimos el cambio en la UI
         setMesas(prev => prev.map(m => (m.id === id ? mesaActual : m)));
+        const errorText = await response.text();
         throw new Error(`Error HTTP ${response.status}: ${errorText}`);
       }
+      
+      // Forzamos una recarga de datos desde el servidor para asegurar consistencia
+      await fetchMesas(true);
 
-      const result = await response.json();
-      if (result.data) {
-        setMesas(prev =>
-          prev.map(m =>
-            m.id === id
-              ? { ...m, estado: result.data.estadoMesa?.trim(), ultimaModificacion: result.data.updated_at || new Date().toISOString() }
-              : m
-          )
-        );
-      }
     } catch (error) {
       console.error("Error al cambiar estado:", error);
       alert(`Error al actualizar: ${error.message}`);
